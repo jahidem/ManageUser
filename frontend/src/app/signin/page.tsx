@@ -39,7 +39,6 @@ export default function Login() {
       {
         setAuthUser(authUser.user);
         setJwt(authUser.jwt);
-        localStorage.setItem('jwt', authUser.jwt);
       }
       router.replace('/dashboard');
     } else setError('Invalid login!');

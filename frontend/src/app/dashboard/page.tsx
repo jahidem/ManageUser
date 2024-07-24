@@ -128,7 +128,6 @@ export default function Dashboard() {
           </div>
           <button
             onClick={() => {
-              localStorage.removeItem('jwt');
               setJwt(null);
               setAuthUser(undefined);
               router.replace('/');

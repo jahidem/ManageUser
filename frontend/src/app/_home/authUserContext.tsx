@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GlobalContextType, User } from './types';
 
 export const GlobalContext = React.createContext<GlobalContextType | null>(
@@ -11,13 +11,20 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [users, setUsers] = React.useState<User[]>([]);
   const [authUser, setAuthUser] = React.useState<User>();
-  const [jwt, setJwt] = React.useState<string | null>(
-    localStorage.getItem('jwt')
-  );
+  const [jwt, setJwtState] = React.useState<string | null>(null);
+  useEffect(() => {
+    setJwtState(localStorage.getItem('jwt'));
+  }, []);
   const removeAuth = () => {
-    localStorage.removeItem('jwt');
-    setJwt(null);
+    setJwtState(null);
     setAuthUser(undefined);
+  };
+  const setJwt = (jwt: string | null) => {
+    setJwtState(jwt);
+    if (typeof window !== 'undefined') {
+      if (jwt != null) localStorage.setItem('jwt', jwt);
+      else localStorage.removeItem('jwt');
+    }
   };
   const updateUsers = (updtUsers: User[]) => {
     const updated = users.map((user) => {
@@ -47,7 +54,7 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
         setAuthUser,
         setJwt,
         setUsers,
-        removeAuth
+        removeAuth,
       }}>
       {children}
     </GlobalContext.Provider>

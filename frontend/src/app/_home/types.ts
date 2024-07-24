@@ -15,7 +15,7 @@ export type GlobalContextType = {
   authUser?: User;
   jwt: string | null;
   setAuthUser: Dispatch<SetStateAction<User | undefined>>;
-  setJwt: Dispatch<SetStateAction<string | null>>;
+  setJwt: (jwt: string|null) => void;
   setUsers: Dispatch<SetStateAction<User[]>>;
   updateUsers: (users: User[]) => void;
   removeUsers: (usedIds: string[]) => void;
