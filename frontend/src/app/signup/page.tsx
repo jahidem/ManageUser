@@ -32,7 +32,7 @@ export default function Login() {
       },
       body: JSON.stringify(signup),
     });
-    if (authenticate.status != 200) setError('Invalid Sign up.');
+    if (authenticate.status != 200) setError('A account with the provided email already exists.');
     else {
       const user: User = await authenticate.json();
       if (user && user.userId) router.replace('/signin');

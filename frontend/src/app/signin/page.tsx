@@ -41,7 +41,7 @@ export default function Login() {
         setJwt(authUser.jwt);
       }
       router.replace('/dashboard');
-    } else setError('Invalid login!');
+    } else setError("User with the email is Blocked or doesn't exists");
     setLoginState('IDLE');
   };
   return (
